@@ -12,7 +12,8 @@ import com.example.weatherapp.viewmodel.WeatherViewModel
 fun SearchScreen(
     vm: WeatherViewModel,
     onNavigateToWeather: () -> Unit,
-    onOpenSettings: () -> Unit
+    onOpenSettings: () -> Unit,
+    onOpenFavorites: () -> Unit
 ) {
     var city by remember { mutableStateOf("") }
 
@@ -27,12 +28,16 @@ fun SearchScreen(
         verticalArrangement = Arrangement.Center
     ) {
 
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("🌦 Weather App", style = MaterialTheme.typography.headlineSmall)
 
+            Button(onClick = { onOpenFavorites() }) {
+                Text("⭐")
+            }
             Button(onClick = { onOpenSettings() }) {
                 Text("⚙")
             }

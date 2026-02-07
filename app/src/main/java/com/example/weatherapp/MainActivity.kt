@@ -8,6 +8,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.*
 import com.example.weatherapp.ui.screens.*
 import com.example.weatherapp.viewmodel.WeatherViewModel
+import com.example.weatherapp.viewmodel.FavoritesViewModel
+
 
 class MainActivity : ComponentActivity() {
 
@@ -18,6 +20,8 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
             val vm: WeatherViewModel = viewModel()
+            val favoritesVm: FavoritesViewModel = viewModel()
+
 
             var unit by remember { mutableStateOf("C") }
 
@@ -32,6 +36,9 @@ class MainActivity : ComponentActivity() {
                         },
                         onOpenSettings = {
                             navController.navigate("settings")
+                        },
+                        onOpenFavorites = {
+                            navController.navigate("favorites")
                         }
                     )
                 }
@@ -60,6 +67,21 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 }
+                composable("favorites") {
+                    FavoritesScreen(
+                        vm = favoritesVm,
+                        onBack = {
+                            navController.popBackStack()
+                        },
+                        onOpenWeather = { city ->
+                            vm.fetchWeather(city) {
+                                navController.navigate("weather")
+                            }
+                        }
+                    )
+                }
+
+
             }
         }
     }

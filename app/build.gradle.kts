@@ -1,13 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.services)
 }
 
 android {
     namespace = "com.example.weatherapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
+
 
     defaultConfig {
         applicationId = "com.example.weatherapp"
@@ -67,4 +67,15 @@ dependencies {
 
 // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Firebase BOM
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+
+// Firebase Auth (Anonymous login)
+    implementation("com.google.firebase:firebase-auth")
+
+// Firebase Realtime Database
+    implementation("com.google.firebase:firebase-database")
+
 }
+
